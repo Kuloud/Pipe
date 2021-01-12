@@ -43,3 +43,10 @@ dependencies {
     implementation 'com.esotericsoftware:kryo-shaded:4.0.2'
     implementation 'com.didi.aoe:library-logging:1.1.3'
 }
+
+ext {
+    releaseArtifact = 'pipe-pump'
+    releaseDescription = 'Data pipe for multi-process.'
+    releaseVersion = '1.0.0'
+}
+apply from: rootProject.file('gradle/publish.gradle')
