@@ -1,0 +1,5 @@
+include ':pump-client'
+include ':pipeLib'
+include ':pipe'
+include ':app'
+rootProject.name = "Pipe"
