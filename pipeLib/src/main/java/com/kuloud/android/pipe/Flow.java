@@ -3,6 +3,9 @@ package com.kuloud.android.pipe;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * 通道传输的数据切片
+ */
 public final class Flow implements Parcelable {
     public static final Creator<Flow> CREATOR = new Creator<Flow>() {
         @Override

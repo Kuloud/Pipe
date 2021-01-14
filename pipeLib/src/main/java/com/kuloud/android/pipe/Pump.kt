@@ -10,7 +10,7 @@ import com.didi.aoe.library.logging.LoggerFactory
 import com.kuloud.android.pipe.io.Parceler
 
 /**
- *
+ * 数据泵，负责建立数据连接，跨进程传输数据流。
  */
 class Pump(private val context: Context, private val id: String) {
     private val mLogger = LoggerFactory.getLogger("Pump")
@@ -20,7 +20,7 @@ class Pump(private val context: Context, private val id: String) {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             mPipeServiceProxy = IPipeService.Stub.asInterface(service)
             mPipeServiceProxy?.subscribe(id)
-            mPipeConnectedListener?.onPipeConnected(0)
+            mPipeConnectedListener?.onPipeConnected(PIPE_STATUS_OK)
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
@@ -39,7 +39,7 @@ class Pump(private val context: Context, private val id: String) {
             bindService()
             return
         }
-        mPipeConnectedListener?.onPipeConnected(1)
+        mPipeConnectedListener?.onPipeConnected(PIPE_STATUS_ALREADY_EXIST)
     }
 
     fun pumps(inlet: Any): Any? {
@@ -83,7 +83,7 @@ class Pump(private val context: Context, private val id: String) {
         val intent = Intent("com.kuloud.android.pipe.PipeService")
         val eintent = createExplicitFromImplicitIntent(context, intent)
         if (eintent == null) {
-            mPipeConnectedListener?.onPipeConnected(-1)
+            mPipeConnectedListener?.onPipeConnected(PIPE_STATUS_SERVICE_NOT_FOUND)
         } else {
             context.bindService(
                 Intent(eintent),

@@ -8,7 +8,9 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.nio.ByteBuffer
 
-
+/**
+ * 基于Kryo的数据序列化/反序列化数据包装器
+ */
 class Parceler {
     fun obj2Byte(obj: Any): ByteArray {
         var bo: ByteArrayOutputStream? = null
